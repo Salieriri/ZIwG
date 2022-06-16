@@ -4,7 +4,6 @@ import os
 
 class Zipanator:
     zip_file_path = os.path.curdir
-    filename = 'all_twitter_data.zip'
 
     def __init__(self, twitter_data):
         self.twitter_data = twitter_data
@@ -21,11 +20,16 @@ class Zipanator:
                 self.files_path.append('{}/{}_{}.txt'.format(self.zip_file_path,
                                                              key, i + 1))
                 with open(self.files_path[-1], 'w', encoding='utf8') as f:
-                    f.write(value['text'])
+                    if isinstance(value['text'], list):
+                        value =' '.join(value['text'])
+                    else:
+                        value = value['text']
+                    f.write(value)
 
-    def zip_files(self):
-        with ZipFile(self.filename, 'w') as zip:
+    def zip_files(self, filename):
+        with ZipFile(filename, 'w') as zip:
             for file in self.files_path:
-                zip.write(file)
+                if os.stat(file).st_size > 0:
+                    zip.write(file)
+                    print('Skompresowano plik {}'.format(file))
                 os.remove(file)
-                print('Skompresowano plik {}'.format(file))
