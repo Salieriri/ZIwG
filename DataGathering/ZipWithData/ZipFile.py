@@ -18,14 +18,15 @@ class Zipanator:
             for key, values in item.items():
                 for i, value in enumerate(values):
                     print('{} plik z {}'.format(i + 1, key))
-                    self.files_path.append('{}/{}_{}.txt'.format(self.zip_file_path,
-                                                                key, i + 1))
+                    self.files_path.append('{}/{}_{}_{}.txt'.format(self.zip_file_path,
+                                                                key, i + 1, value['date']))
                     with open(self.files_path[-1], 'w', encoding='utf8') as f:
+                        text = value['title'] + '\n'
                         if isinstance(value['text'], list):
-                            value =' '.join(value['text'])
+                            text += ' '.join(value['text'])
                         else:
-                            value = value['text']
-                        f.write(value)
+                            text += value['text']
+                        f.write(text)
 
     def zip_files(self, filename):
         with ZipFile(filename, 'a') as zip:
