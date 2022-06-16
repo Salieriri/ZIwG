@@ -1,6 +1,6 @@
 from zipfile import ZipFile
 import os
-
+from datetime import datetime
 
 class Zipanator:
     zip_file_path = os.path.curdir
@@ -17,20 +17,21 @@ class Zipanator:
         for item in self.json_data:
             for key, values in item.items():
                 for i, value in enumerate(values):
-                    print('{} plik z {}'.format(i + 1, key))
-                    self.files_path.append('{}/{}_{}.txt'.format(self.zip_file_path,
-                                                                key, i + 1))
-                    with open(self.files_path[-1], 'w', encoding='utf8') as f:
-                        if isinstance(value['text'], list):
-                            value =' '.join(value['text'])
-                        else:
-                            value = value['text']
-                        f.write(value)
+                    if value['date'] is not None:
+                        print('{} plik z {}'.format(i + 1, key))
+                        self.files_path.append('{}/{}_{}_{}.txt'.format(self.zip_file_path,
+                                                                    key, i + 1, datetime.strptime(value['date'], "%Y-%m-%dT%H:%M:%S%z").strftime("%Y-%m-%dT%H-%M-%S%z")))
+                        with open(self.files_path[-1], 'w', encoding='utf8') as f:
+                            text = value['title'] + '\n'
+                            if isinstance(value['text'], list):
+                                text += ' '.join(value['text'])
+                            else:
+                                text += value['text']
+                            f.write(text)
 
     def zip_files(self, filename):
         with ZipFile(filename, 'a') as zip:
             for file in self.files_path:
-                if os.stat(file).st_size > 0:
-                    zip.write(file)
-                    print('Skompresowano plik {}'.format(file))
+                zip.write(file)
+                print('Skompresowano plik {}'.format(file))
                 os.remove(file)

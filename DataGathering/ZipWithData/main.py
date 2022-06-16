@@ -2,8 +2,6 @@ import ZipFile
 import json
 import sys
 
-# run:
-# python3 main.py all_data
 def main(argv):
     source_path = argv[0]
     dest_path = argv[1]
