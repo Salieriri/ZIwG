@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  dataflow:
+    build: ./DataGathering/Dataflow
+    volumes:
+      - static-content:/usr/src/app/data
+  twitterdata:
+    build: ./DataGathering/TwitterData
+    volumes:
+      - static-content:/usr/src/app/data
+  zipanator:
+    build: ./DataGathering/ZipWithData
+    volumes:
+      - static-content:/usr/src/app/data
+  # DisplayData:
+  #   build: ./DisplayData
+  #   ports:
+        # - "8080"
+    # volumes:
+    #   - static-content:/usr/src/app/data
+
+volumes:
+  static-content:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/mnt/c/Users/jskalska/Projects/personal/PWr/ZIwG/data'

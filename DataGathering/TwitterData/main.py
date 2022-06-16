@@ -9,4 +9,4 @@ if __name__ == '__main__':
     api.summary()
     zipanator = ZipFile.Zipanator(api.data)
     zipanator.make_files_from_data()
-    zipanator.zip_files()
+    zipanator.zip_files('data/all_twitter_data.zip')
