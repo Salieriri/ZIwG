@@ -24,7 +24,7 @@ class UpdateDates:
                     dzien = data[1].split(".")
                     a=datetime.datetime(2022, int(dzien[1][:-1]), int(dzien[0]), int(godzina[0]), int(godzina[1]))
                     # print(a)
-                    element['date'] = a.strftime("%Y-%m-%dT%H:%M:00+02:00")
+                    element['date'] = a.strftime("%Y-%m-%dT%H:%M:%S+02:00")
                     lista.append(element)
         with open(file, 'w', encoding='utf8') as f:
             f.write(json.dumps(lista, ensure_ascii=False))
@@ -42,7 +42,7 @@ class UpdateDates:
                 godzina = data[-1].split(":")
                 a=datetime.datetime(int(data[2][:-1]), int(index), int(data[0]), int(godzina[0]), int(godzina[1]))
                 # print(a)
-                element['date'] = a.strftime("%Y-%m-%dT%H:%M:00+02:00")
+                element['date'] = a.strftime("%Y-%m-%dT%H:%M:%S+02:00")
         with open(file, 'w', encoding='utf8') as f:
             f.write(json.dumps(json_object, ensure_ascii=False))
 
