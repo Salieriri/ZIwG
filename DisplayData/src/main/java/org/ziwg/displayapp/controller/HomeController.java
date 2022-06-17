@@ -31,7 +31,7 @@ import java.util.zip.ZipFile;
 @Controller
 public class HomeController {
 
-    private final String UPLOAD_DIR = "./uploads/";
+    private static final String UPLOAD_DIR = "./uploads/";
 
     @GetMapping
     public String home(final Model model) {
@@ -99,7 +99,7 @@ public class HomeController {
         final ArrayList<ArrayList<Float>> arrays = similarity.getArr();
         for (int i = 0; i < arrays.size(); i++) {
             for (int j = i + 1; j < arrays.get(i).size(); j++) {
-                if (arrays.get(i).get(j) > 0.3) {
+                if (arrays.get(i).get(j) > 0.33) {
                     edges.add(new DataSet.Edge(i, j));
                 }
             }
