@@ -17,7 +17,7 @@ class Zipanator:
         for item in self.json_data:
             for key, values in item.items():
                 for i, value in enumerate(values):
-                    if value['date'] is not None:
+                    if i%3==0 and value['date'] is not None:
                         print('{} plik z {}'.format(i + 1, key))
                         self.files_path.append('{}/{}_{}_{}.txt'.format(self.zip_file_path,
                                                                     key, i + 1, datetime.strptime(value['date'], "%Y-%m-%dT%H:%M:%S%z").strftime("%Y-%m-%dT%H-%M-%S%z")))

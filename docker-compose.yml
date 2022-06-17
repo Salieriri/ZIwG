@@ -13,12 +13,16 @@ services:
     build: ./DataGathering/ZipWithData
     volumes:
       - static-content:/usr/src/app/data
-  # DisplayData:
-  #   build: ./DisplayData
-  #   ports:
-        # - "8080"
-    # volumes:
-    #   - static-content:/usr/src/app/data
+  lpmnclient:
+    build: ./LpmnClient
+    volumes:
+      - static-content:/usr/src/app/data
+  displaydata:
+    build: ./DisplayData
+    ports:
+        - "8080:8080"
+    volumes:
+      - static-content:/usr/src/app/data
 
 volumes:
   static-content:
